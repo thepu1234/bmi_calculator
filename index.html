@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+        <div class="col-md-8">
+            <div class="card" style="text-align: center; margin: 10px">
+                <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">WeightInput (kg)</label>
+                    <input type="email" class="form-control mt-1" value="" id="weight_input" placeholder="weight input">
+                    <p id="err_weight" style="font-size: 12px; color: red"></p>
+                </div>
+                <div class="col-md-6">
+                    <label for="">HeightInput (cm)</label>
+                    <input type="email" class="form-control mt-1" value="" id="height_input" placeholder="height input">
+                    <p id="err_height" style="font-size: 12px; color: red"></p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <a href="#" class="btn btn-success col-md-3" onclick="bmiCalculate()">CalculateBtn</a>
+        <br>
+        <br>
+        <input type="text" id="result" class="mt-4 form-control">
+                <br>
+                <br>
+        <p class="m-1" id="statement"></p>
+    </div>
+</div>
+<script>
+
+    function bmiCalculate() {
+
+        let get_weight = document.getElementById("weight_input").value;
+        let get_height = document.getElementById("height_input").value;
+        let statement = document.getElementById("statement");
+        let err_weight = document.getElementById("err_weight");
+        let err_height = document.getElementById("err_height");
+
+        if (get_weight === "" || isNaN(get_weight))
+            err_weight.innerHTML = "Provide a valid Weight!";
+
+        else if (get_height === "" || isNaN(get_height))
+            err_height.innerHTML = "Provide a valid Height!";
+
+        else {
+            document.getElementById("err_weight").style.display = "none";
+            document.getElementById("err_height").style.display = "none";
+
+            let bmi = (get_weight / ((get_height * get_height) / 10000)).toFixed(2);
+            document.getElementById("result").value = bmi;
+
+            if (bmi < 18.5) {
+                statement.innerText = "Your BMI falls within the underweight range";
+            } else if ((bmi > 18.5) && (bmi <= 24.9)) {
+                statement.innerText = "Your BMI falls within the normal or healthy weight range";
+            } else if ((bmi >= 25) && (bmi <= 29.9)) {
+                statement.innerText = "Your BMI falls within the overweight range";
+            } else {
+                statement.innerText = "Your BMI falls within the obese range";
+            }
+
+        }
+    }
+
+</script>
+</body>
+</html>
